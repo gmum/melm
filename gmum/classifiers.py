@@ -34,10 +34,10 @@ class KDE(object):
             self.kde_b = lambda x : 0
 
     def predict(self, x):
-        return map(lambda x : self.a if x==1 else self.b, [np.sign(self.kde_a(_x) - self.kde_b(_x)) for _x in x])
+        return np.array(map(lambda x : self.a if x==1 else self.b, [np.sign(self.kde_a(_x) - self.kde_b(_x)) for _x in x]))
 
     def predict_proba(self, x):
-        return [max(self.kde_a(_x), self.kde_b(_x)) / (self.kde_a(_x) + self.kde_b(_x)) for _x in x]
+        return np.array([max(self.kde_a(_x), self.kde_b(_x)) / (self.kde_a(_x) + self.kde_b(_x)) for _x in x])
 
     def __str__(self):
         return "KDE"
@@ -80,7 +80,7 @@ class KNN(object):
 
     def predict(self, X):
         proba = self.clf.predict_proba(X)
-        return [self.clf.classes_[r] for r in np.argmax(np.multiply(proba, self.weights), axis=1).ravel()]
+        return np.array([self.clf.classes_[r] for r in np.argmax(np.multiply(proba, self.weights), axis=1).ravel()])
 
     def predict_proba(self, X):
         proba = self.clf.predict_proba(X)

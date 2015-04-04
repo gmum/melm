@@ -57,7 +57,7 @@ class MELM(BaseEstimator, ClassifierMixin, MetaEstimatorMixin, TransformerMixin)
     def fit(self, x, y):
 
         if len(set(y)) > 2:
-            raise NotImplementedError('Currently ELC supports only binary datasets')
+            raise NotImplementedError('Currently MELM supports only binary datasets')
 
         self.base_objective = DCS_kd(gamma=self.gamma, k=self.k, 
                                      covariance_estimator=self.covariance_estimator)
