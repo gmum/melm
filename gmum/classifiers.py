@@ -23,17 +23,15 @@ class KDE(object):
         x2 = X[y == self.b]
         try:
             self.kde_a = stats.gaussian_kde(x1.T, 'silverman')
+            self.kde_a.set_bandwidth(self.gamma * self.kde_a.silverman_factor())
         except:
             self.kde_a = lambda x : 0
 
-        self.kde_a.set_bandwidth(self.gamma * self.kde_a.silverman_factor())
-
         try:
             self.kde_b = stats.gaussian_kde(x2.T, 'silverman')
+            self.kde_b.set_bandwidth(self.gamma * self.kde_b.silverman_factor())
         except:
             self.kde_b = lambda x : 0
-
-        self.kde_b.set_bandwidth(self.gamma * self.kde_b.silverman_factor())
 
     def predict(self, x):
         return map(lambda x : self.a if x==1 else self.b, [np.sign(self.kde_a(_x) - self.kde_b(_x)) for _x in x])
