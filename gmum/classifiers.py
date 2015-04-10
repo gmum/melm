@@ -62,7 +62,7 @@ class SVM(object):
         return self.clf.predict(X)
 
     def predict_proba(self, X):
-        return self.clf.predict_proba(x)
+        return self.clf.predict_proba(X)
 
     def __str__(self):
         return "SVM RBF"
